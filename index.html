@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07111f" />
+  <title>SportsGuessr — The Sports Player Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" id="brandHome" aria-label="Back to menu">
+        <span class="brand-mark">SG</span>
+        <span>SPORTS<span class="accent">GUESSR</span></span>
+      </button>
+      <div class="topbar-right">
+        <button class="icon-btn" id="statsBtn" title="Statistics">▥</button>
+        <button class="icon-btn" id="helpBtn" title="How to play">?</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="menuView" class="view active">
+        <div class="hero">
+          <div class="eyebrow">THE DAILY SPORTS PLAYER GAME</div>
+          <h1>Can you name<br><span>the player?</span></h1>
+          <p>Pick a sport. You get <b>10 guesses</b>. After guess #5, the mystery player's team is revealed.</p>
+        </div>
+
+        <div class="sport-grid">
+          <button class="sport-card basketball" data-sport="basketball">
+            <span class="sport-icon">🏀</span><span class="sport-title">Basketball</span><span class="sport-sub">NBA</span><span class="play-pill">PLAY →</span>
+          </button>
+          <button class="sport-card football" data-sport="football">
+            <span class="sport-icon">🏈</span><span class="sport-title">Football</span><span class="sport-sub">NFL</span><span class="play-pill">PLAY →</span>
+          </button>
+          <button class="sport-card soccer" data-sport="soccer">
+            <span class="sport-icon">⚽</span><span class="sport-title">Soccer</span><span class="sport-sub">Global</span><span class="play-pill">PLAY →</span>
+          </button>
+          <button class="sport-card baseball" data-sport="baseball">
+            <span class="sport-icon">⚾</span><span class="sport-title">Baseball</span><span class="sport-sub">MLB</span><span class="play-pill">PLAY →</span>
+          </button>
+        </div>
+
+        <section class="links-panel">
+          <div class="section-label">OFFICIAL SPORTS HUBS</div>
+          <div class="official-links">
+            <a href="https://www.nba.com/" target="_blank" rel="noopener" class="official-link nba"><span>🏀</span><div><b>Visit NBA</b><small>Scores, news & highlights</small></div><strong>↗</strong></a>
+            <a href="https://www.nfl.com/" target="_blank" rel="noopener" class="official-link nfl"><span>🏈</span><div><b>Visit NFL</b><small>Scores, news & highlights</small></div><strong>↗</strong></a>
+            <a href="https://www.mlb.com/" target="_blank" rel="noopener" class="official-link mlb"><span>⚾</span><div><b>Visit MLB</b><small>Scores, news & highlights</small></div><strong>↗</strong></a>
+            <a href="https://www.fifa.com/" target="_blank" rel="noopener" class="official-link fifa"><span>⚽</span><div><b>Visit Soccer</b><small>News, matches & highlights</small></div><strong>↗</strong></a>
+          </div>
+        </section>
+
+        <div class="menu-foot">Keyboard friendly • Mobile ready • No account required</div>
+      </section>
+
+      <section id="gameView" class="view">
+        <div class="game-header">
+          <div>
+            <button class="back-btn" id="backMenu">← Menu</button>
+            <div class="game-sport" id="gameSport">BASKETBALL</div>
+            <h2>Who is the player?</h2>
+          </div>
+          <div class="timer-wrap"><span>TIME</span><strong id="timer">0:00</strong></div>
+        </div>
+
+        <div class="game-layout">
+          <section class="board-panel">
+            <div class="hint-banner" id="hintBanner">Guess the mystery player.</div>
+            <div id="guessBoard" class="guess-board" aria-label="Guess board"></div>
+            <div class="input-row">
+              <input id="guessInput" autocomplete="off" spellcheck="false" placeholder="Type a player name..." aria-label="Player name guess" />
+              <button id="guessBtn" class="guess-btn">GUESS</button>
+            </div>
+            <div id="autocomplete" class="autocomplete"></div>
+            <div class="keyboard" id="keyboard"></div>
+            <div class="game-note"><span>10</span> guesses • Team hint unlocks after <span>5</span> guesses • Names include first + last name</div>
+          </section>
+
+          <aside class="side-panel">
+            <div class="side-card target-card">
+              <div class="side-label">MYSTERY PLAYER</div>
+              <div class="silhouette">?</div>
+              <div class="side-muted">Find the name before the board fills.</div>
+            </div>
+            <div class="side-card" id="teamHintCard">
+              <div class="side-label">TEAM HINT</div>
+              <div id="teamHint" class="team-hidden">🔒 Locked</div>
+              <small>Reveals after 5 incorrect guesses.</small>
+            </div>
+            <div class="side-card rules-card">
+              <div class="side-label">SCORING</div>
+              <div class="rule"><span class="dot exact"></span><span>Correct letter & position</span></div>
+              <div class="rule"><span class="dot present"></span><span>Correct letter, wrong position</span></div>
+              <div class="rule"><span class="dot miss"></span><span>Letter not in the name</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="resultView" class="view">
+        <div class="result-card">
+          <div id="resultEmoji" class="result-emoji">🏆</div>
+          <div id="resultKicker" class="eyebrow">NICE WORK</div>
+          <h2 id="resultTitle">You got it!</h2>
+          <div class="answer-name" id="resultName">LeBron James</div>
+          <div class="result-stats">
+            <div><span>TIME</span><b id="resultTime">0:00</b></div>
+            <div><span>GUESSES</span><b id="resultGuesses">1 / 10</b></div>
+            <div><span>SPORT</span><b id="resultSport">NBA</b></div>
+          </div>
+          <div class="result-actions">
+            <button id="newGameBtn" class="primary-btn">NEW GAME</button>
+            <button id="resultMenuBtn" class="secondary-btn">MENU</button>
+          </div>
+          <button id="shareBtn" class="share-btn">▣ Copy result</button>
+        </div>
+      </section>
+
+      <section id="statsView" class="view">
+        <div class="modal-page">
+          <button class="back-btn" id="statsBack">← Back</button>
+          <div class="eyebrow">YOUR RECORD</div>
+          <h2>Statistics</h2>
+          <div class="stats-grid">
+            <div><b id="statPlayed">0</b><span>Played</span></div>
+            <div><b id="statWins">0</b><span>Wins</span></div>
+            <div><b id="statRate">0%</b><span>Win rate</span></div>
+            <div><b id="statStreak">0</b><span>Streak</span></div>
+          </div>
+          <div class="history" id="history"></div>
+        </div>
+      </section>
+
+      <section id="helpView" class="view">
+        <div class="modal-page help-page">
+          <button class="back-btn" id="helpBack">← Back</button>
+          <div class="eyebrow">HOW TO PLAY</div>
+          <h2>SportsGuessr</h2>
+          <div class="help-grid">
+            <div><strong>01</strong><h3>Choose a sport</h3><p>Each mode uses only players from that sport. Basketball will never mix in an NFL or MLB player.</p></div>
+            <div><strong>02</strong><h3>Type a player</h3><p>Enter the full first and last name. The board creates a tile for every character and uses a dark divider for the space.</p></div>
+            <div><strong>03</strong><h3>Use the colors</h3><p>Green is exact, gold means the letter is somewhere else, and gray means it is not used.</p></div>
+            <div><strong>04</strong><h3>Unlock the team</h3><p>After five incorrect guesses, the mystery player's current team is revealed.</p></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="players.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
